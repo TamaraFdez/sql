@@ -21,7 +21,7 @@ VALUES
 ('Cristina', 'cristina@malia.es', 3),
 ('Jesus', 'jesus@hotelbets.com', 4);
 
-INSERT INTO Student (studentName, surname, email,phone_number, teacher_id, employee_id)
+INSERT INTO Student (studentName, surname, email, phoneNumber, teacher_id, employee_id)
 VALUES
 ('Maria', 'German', 'MGerman@cipfbmoll.eu',"667896745",1,1),
 ('Joan', 'Caminos','JCaminos@cifpfbmoll.eu',"665434748",2,2);
