@@ -31,6 +31,6 @@ CREATE TABLE Student(
     email VARCHAR(250),
     teacher_id INT REFERENCES Teacher(id),
     employee_id INT REFERENCES Employee(id),
-    phone_number VARCHAR(15)
+    phoneNumber VARCHAR(15)
 );
 
