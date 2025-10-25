@@ -1,10 +1,10 @@
 CREATE DATABASE IF NOT EXISTS borjamoll;
 USE borjamoll;
+DROP TABLE IF EXISTS Hour;
 DROP TABLE IF EXISTS Student;
 DROP TABLE IF EXISTS Employee;
 DROP TABLE IF EXISTS Company;
 DROP TABLE IF EXISTS Teacher;
-DROP TABLE IF EXISTS Hour;
 
 CREATE TABLE Teacher (
     id INT primary key auto_increment,
