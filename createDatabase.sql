@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS Student;
 DROP TABLE IF EXISTS Employee;
 DROP TABLE IF EXISTS Company;
 DROP TABLE IF EXISTS Teacher;
+DROP TABLE IF EXISTS Hour;
 
 CREATE TABLE Teacher (
     id INT primary key auto_increment,
@@ -34,3 +35,8 @@ CREATE TABLE Student(
     phoneNumber VARCHAR(15)
 );
 
+CREATE TABLE Hour( 
+    id INT primary key auto_increment,
+    totalHour INT,
+    student_id int REFERENCES Student(id)
+);

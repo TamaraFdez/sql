@@ -25,3 +25,5 @@ INSERT INTO Student (studentName, surname, email,phone_number, teacher_id, emplo
 VALUES
 ('Maria', 'German', 'MGerman@cipfbmoll.eu',"667896745",1,1),
 ('Joan', 'Caminos','JCaminos@cifpfbmoll.eu',"665434748",2,2);
+
+SELECT * FROM Student;
