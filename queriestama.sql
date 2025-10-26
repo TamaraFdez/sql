@@ -37,7 +37,27 @@ SELECT s.studentName AS Nombre, h.totalHour AS Horas FROM Hour h
 JOIN Student s ON h.student_id= s.id
 WHERE h.totalHour BETWEEN 50 and 100;
 
+-- HAVING agrupa columnas en vez de filas
+SELECT s.studentName, SUM(h.totalHour) AS TotalHoras
+FROM Student s
+JOIN Hour h ON s.id = h.student_id
+GROUP BY s.studentName
+HAVING SUM(h.totalHour) > 80;
 
+-- GROUP BY
+SELECT teacher_id, COUNT(*) AS NumAlumnos
+FROM Student
+GROUP BY teacher_id;
+-- HAVING COUNT(*) > 1; solo enseña los que tengan +1, si esto enseña todo el numero de alumbnos de todos
 
+-- UPDATE
+UPDATE Student SET phoneNumber = '66000660'
+WHERE studentName = 'Pablo';
 
+-- VIEW
+CREATE VIEW VistaAlumnosProfesores AS
+SELECT s.studentName, t.teacherName
+FROM Student s
+JOIN Teacher t ON s.teacher_id=t.id;
 
+SELECT * FROM VistaAlumnosProfesores;
