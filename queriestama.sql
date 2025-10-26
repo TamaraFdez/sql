@@ -61,3 +61,31 @@ FROM Student s
 JOIN Teacher t ON s.teacher_id=t.id;
 
 SELECT * FROM VistaAlumnosProfesores;
+
+DROP VIEW IF EXISTS VistaAlumnosProfesores;
+
+-- CONCAT UPPER() LOWER()
+SELECT UPPER(studentName),LOWER(surname), CONCAT(studentName, ' ', surname) AS NombreCompleto 
+FROM Student;
+
+-- ALTER TABLE - ADD CHANGE MODIFY DELETE
+ALTER TABLE Student
+ADD dateOfBirth DATE;
+
+ALTER TABLE Student
+ADD city VARCHAR(100),
+ADD country VARCHAR(100);
+
+ALTER TABLE Student
+MODIFY city VARCHAR(20);
+
+ALTER TABLE Student
+CHANGE country nation VARCHAR(230);
+
+DESCRIBE Student;
+
+ALTER TABLE Student 
+DROP COLUMN dateOfBirth, 
+DROP COLUMN city, 
+DROP COLUMN nation;
+
