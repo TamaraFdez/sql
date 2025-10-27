@@ -202,14 +202,14 @@ DROP COLUMN dateOfBirth,
 DROP COLUMN city, 
 DROP COLUMN nation;
 
--- 🔹SUBQUERY
+-- 🔹 SUBQUERY
 DELETE FROM Student
 WHERE id NOT IN (
     SELECT MIN(id)
     FROM Student 
     GROUP BY studentName
 );
--- COALESCE
+-- 🔹 COALESCE
 SELECT studentName, COALESCE(email, 'email desconocido') AS student_email
 FROM Student;
 
