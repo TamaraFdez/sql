@@ -55,7 +55,7 @@ VALUES
 ('Bad', 'Courier', 'bd@borjamoll.cat', '666554433', 1, 1),
 ('Sonia', 'Irascuni', 'si@borjamoll.cat', '666777888', 1, 1),
 ('Pep', 'Forani', 'pf@borjamoll.cat', '666778899', 2, 2),
-('Maria', 'Corrent', 'mc@borjamoll.cat', '666555444', 3, 3);
+('Maria', 'Corrent', null , '666555444', 3, 3);
 
 -- 🔹 HOURS
 INSERT INTO Hour (totalHour, student_id) VALUES
@@ -113,8 +113,12 @@ UPDATE Student SET email = 'rbolaños@cpifbmoll.eu' WHERE studentName = 'Roberto
 -- 🔹 DELETE
 DELETE FROM Student WHERE studentName = 'Roberto' AND surname = 'Bolaños';
 
--- 🔹 LIMIT
+-- 🔹 LIMIT / OFFSET
 SELECT surname FROM Student WHERE teacher_id=1 LIMIT 1;
+
+SELECT studentName, surname
+FROM Student
+LIMIT 5 OFFSET 5;
 
 -- 🔹 MIN MAX AVG COUNT SUM
 SELECT MIN(id) FROM Student;
@@ -140,6 +144,15 @@ SELECT * FROM Student WHERE id NOT BETWEEN 1 AND 2;
 SELECT s.studentName AS Nombre, h.totalHour AS Horas FROM Hour h 
 JOIN Student s ON h.student_id= s.id
 WHERE h.totalHour BETWEEN 50 and 100;
+
+-- 🔹 NULL/ NOT NULL
+SELECT studentName, surname
+FROM Student
+WHERE email IS NULL;
+
+SELECT teacherName, email
+FROM Teacher
+WHERE email IS NOT NULL;
 
 -- 🔹 EXTRA QUERIES 🔹--
 -- 🔹 GROUP BY
@@ -196,5 +209,7 @@ WHERE id NOT IN (
     FROM Student 
     GROUP BY studentName
 );
-
+-- COALESCE
+SELECT studentName, COALESCE(email, 'email desconocido') AS student_email
+FROM Student;
 
