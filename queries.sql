@@ -1,5 +1,5 @@
 USE borjamoll;
-
+-- 🔹 POPULATE DATABASE 🔹-- 
 -- 🔹 TEACHERS
 INSERT INTO Teacher(teacherName, email) 
 VALUES
@@ -70,4 +70,131 @@ INSERT INTO Hour (totalHour, student_id) VALUES
 (12,2),
 (11,3),
 (18,4);
+
+-- 🔹 CLASS QUERIES 🔹--
+-- 🔹 SELECT
+SELECT * FROM Company;
+
+-- 🔹 WHERE
+SELECT studentName FROM Student WHERE studentName = 'Bad';
+SELECT company_id FROM Employee WHERE company_id = 2;
+
+-- 🔹 WHERE WITH ALIAS
+SELECT studentName AS Nombre, surname AS Apellido FROM Student WHERE id < 4;
+
+-- 🔹 DISTINCT
+SELECT DISTINCT companyName FROM Company;
+
+-- 🔹 DISTINCT WITH JOIN
+SELECT DISTINCT t.teacherName, s.studentName
+FROM Student s
+JOIN Teacher t ON s.teacher_id = t.id;
+
+-- 🔹 AND OR NOT
+SELECT * FROM Employee WHERE company_id = 1 AND company_id = 2;
+SELECT * FROM Student WHERE teacher_id = 1 AND employee_id = 1;
+SELECT * FROM Student WHERE teacher_id = 1 OR teacher_id = 2;
+SELECT * FROM Student WHERE NOT teacher_id = 3;
+
+-- 🔹 ORDER BY ASC/DESC
+SELECT * FROM Employee ORDER BY company_id DESC;
+
+SELECT studentName AS Nombre, totalHour 
+FROM Student s
+JOIN Hour h ON s.id=h.student_id
+ORDER BY totalHour ASC;
+
+-- 🔹 INSERT
+INSERT INTO Student (studentName, surname, email, phoneNumber, teacher_id, employee_id) VALUES ('Roberto', 'Bolaños', 'rb@borjamoll.cat', "666223344", 2, 4);
+
+-- 🔹 UPDATE
+UPDATE Student SET email = 'rbolaños@cpifbmoll.eu' WHERE studentName = 'Roberto' AND surname = 'Bolaños';
+
+-- 🔹 DELETE
+DELETE FROM Student WHERE studentName = 'Roberto' AND surname = 'Bolaños';
+
+-- 🔹 LIMIT
+SELECT surname FROM Student WHERE teacher_id=1 LIMIT 1;
+
+-- 🔹 MIN MAX AVG COUNT SUM
+SELECT MIN(id) FROM Student;
+SELECT AVG(totalHour) FROM Hour;
+SELECT COUNT(totalHour) AS NumeroDeFilas, 
+MIN(totalHour) AS MenosHoras, 
+MAX(totalHour) AS MásHoras,
+SUM(totalHour) AS SumaTotal,
+AVG(totalHour) AS MediaTotal
+FROM Hour;
+
+-- 🔹 LIKE
+SELECT studentName FROM Student WHERE  studentName LIKE 'P%';
+SELECT * FROM Teacher WHERE teacherName LIKE '%m%';
+SELECT * FROM Student WHERE email LIKE '%i@%.eu';
+
+-- 🔹 IN
+SELECT studentName FROM Student WHERE employee_id IN (2, 3);
+SELECT * FROM Company WHERE companyName IN ('Barcelo', 'Melia');
+
+-- 🔹 BETWEEN
+SELECT * FROM Student WHERE id NOT BETWEEN 1 AND 2;
+SELECT s.studentName AS Nombre, h.totalHour AS Horas FROM Hour h 
+JOIN Student s ON h.student_id= s.id
+WHERE h.totalHour BETWEEN 50 and 100;
+
+-- 🔹 EXTRA QUERIES 🔹--
+-- 🔹 GROUP BY
+SELECT teacher_id, COUNT(*) AS NumAlumnos
+FROM Student
+GROUP BY teacher_id;
+
+-- 🔹 GROUP BY + HAVING
+SELECT s.studentName, SUM(h.totalHour) AS TotalHoras
+FROM Student s
+JOIN Hour h ON s.id = h.student_id
+GROUP BY s.studentName
+HAVING SUM(h.totalHour) > 80;
+
+-- 🔹  VIEW
+CREATE VIEW VistaAlumnosProfesores AS
+SELECT s.studentName, t.teacherName
+FROM Student s
+JOIN Teacher t ON s.teacher_id=t.id;
+
+SELECT * FROM VistaAlumnosProfesores;
+
+DROP VIEW IF EXISTS VistaAlumnosProfesores;
+
+-- 🔹 CONCAT UPPER() LOWER()
+SELECT UPPER(studentName),LOWER(surname), CONCAT(studentName, ' ', surname) AS NombreCompleto 
+FROM Student;
+
+-- 🔹 ALTER TABLE - ADD CHANGE MODIFY DELETE
+ALTER TABLE Student
+ADD dateOfBirth DATE;
+
+ALTER TABLE Student
+ADD city VARCHAR(100),
+ADD country VARCHAR(100);
+
+ALTER TABLE Student
+MODIFY city VARCHAR(20);
+
+ALTER TABLE Student
+CHANGE country nation VARCHAR(230);
+
+DESCRIBE Student;
+
+ALTER TABLE Student 
+DROP COLUMN dateOfBirth, 
+DROP COLUMN city, 
+DROP COLUMN nation;
+
+-- 🔹SUBQUERY
+DELETE FROM Student
+WHERE id NOT IN (
+    SELECT MIN(id)
+    FROM Student 
+    GROUP BY studentName
+);
+
 
