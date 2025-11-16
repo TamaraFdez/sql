@@ -1,14 +1,14 @@
 CREATE DATABASE IF NOT EXISTS borjamoll;
 USE borjamoll;
 
--- LIMPIEZA
+-- 🔹 DROP TABLES SI EXISTEN (para resetear)
 DROP TABLE IF EXISTS Hour;
 DROP TABLE IF EXISTS Student;
 DROP TABLE IF EXISTS Employee;
 DROP TABLE IF EXISTS Company;
 DROP TABLE IF EXISTS Teacher;
 
--- TEACHERS
+-- 🔹 TEACHERS
 CREATE TABLE Teacher (
     id INT PRIMARY KEY AUTO_INCREMENT,
     teacherName VARCHAR(250) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE Teacher (
     salary DECIMAL(10,2)
 );
 
--- COMPANIES
+-- 🔹 COMPANIES
 CREATE TABLE Company (
     id INT PRIMARY KEY AUTO_INCREMENT,
     companyName VARCHAR(250) NOT NULL,
@@ -25,18 +25,19 @@ CREATE TABLE Company (
     country VARCHAR(250)
 );
 
--- EMPLOYEES
+-- 🔹 EMPLOYEES
 CREATE TABLE Employee(
     id INT PRIMARY KEY AUTO_INCREMENT,
     employeeName VARCHAR(250) NOT NULL,
     email VARCHAR(250),
     birthDate DATE,
+    hireDate DATE,
     salary DECIMAL(10,2),
     company_id INT,
     FOREIGN KEY (company_id) REFERENCES Company(id)
 );
 
--- STUDENTS
+-- 🔹 STUDENTS
 CREATE TABLE Student(
     id INT PRIMARY KEY AUTO_INCREMENT,
     studentName VARCHAR(250) NOT NULL,
@@ -45,17 +46,20 @@ CREATE TABLE Student(
     phoneNumber VARCHAR(15),
     teacher_id INT,
     employee_id INT,
-    status VARCHAR(50),
+    status VARCHAR(50),        
+    enrollmentDate DATE,     
     FOREIGN KEY (teacher_id) REFERENCES Teacher(id),
     FOREIGN KEY (employee_id) REFERENCES Employee(id)
 );
 
--- HOURS
-CREATE TABLE Hour( 
+-- 🔹 HOURS
+CREATE TABLE Hour(
     id INT PRIMARY KEY AUTO_INCREMENT,
     totalHour INT,
     student_id INT,
+    dateWorked DATE,        
     FOREIGN KEY (student_id) REFERENCES Student(id)
 );
+
 
 

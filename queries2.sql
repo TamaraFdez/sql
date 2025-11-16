@@ -35,6 +35,7 @@ UPDATE Student SET result = 'Aprobado' WHERE id IN (1,2,6);
 UPDATE Student SET result = 'Suspenso' WHERE id IN (3,5,10);
 UPDATE Student SET result = 'En Curso' WHERE result IS NULL;
 
+
 -- Todos los estudiantes con su profesor y empleado de empresa
 SELECT s.studentName, t.teacherName, e.employeeName
 FROM Student s
@@ -212,3 +213,25 @@ WHERE EXISTS (
     WHERE h.student_id = s.id
     AND h.totalHour > 50
 );
+
+
+-- MOD impares
+SELECT s.studentName, h.totalHour
+FROM Student s
+JOIN Hour h ON s.id = h.student_id
+WHERE MOD(h.totalHour, 2) != 0;
+
+
+SELECT studentName, YEAR(enrollmentDate)
+FROM Student
+WHERE YEAR(enrollmentDate) = 2023;
+
+-- Horas trabajadas por mes
+SELECT MONTH(dateWorked) AS month, SUM(totalHour) AS hours
+FROM Hour
+GROUP BY MONTH(dateWorked);
+
+-- Empleados con mas de 5 años de antiguedad
+SELECT employeeName, TIMESTAMPDIFF(YEAR, hireDate, CURDATE()) AS years_worked
+FROM Employee
+WHERE TIMESTAMPDIFF(YEAR, hireDate, CURDATE()) > 5;
