@@ -37,6 +37,14 @@ SELECT *
 FROM Teacher 
 WHERE salary < 3000;
 
+-- EXCEPT
+SELECT teacherName, salary 
+FROM Teacher 
+EXCEPT 
+SELECT * 
+FROM Teacher 
+WHERE salary < 3000;
+
 
 ALTER TABLE Student ADD COLUMN result VARCHAR(20);
 
