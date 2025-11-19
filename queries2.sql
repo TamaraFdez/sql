@@ -45,9 +45,10 @@ SELECT *
 FROM Teacher 
 WHERE salary < 3000;
 
-
+-- ddl
 ALTER TABLE Student ADD COLUMN result VARCHAR(20);
 
+--dml
 -- Actualizamos algunos valores
 UPDATE Student SET result = 'Aprobado' WHERE id IN (1,2,6);
 UPDATE Student SET result = 'Suspenso' WHERE id IN (3,5,10);

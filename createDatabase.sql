@@ -56,7 +56,7 @@ CREATE TABLE Student(
 CREATE TABLE Hour(
     id INT PRIMARY KEY AUTO_INCREMENT,
     totalHour INT,
-    student_id INT,
+    student_id INT NOT NULL,
     dateWorked DATE,        
     FOREIGN KEY (student_id) REFERENCES Student(id)
 );
