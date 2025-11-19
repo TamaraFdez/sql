@@ -28,6 +28,16 @@ WHERE teacher_id IN (
     WHERE salary > (SELECT AVG(salary) FROM Teacher)
 );
 
+-- INTERSECT
+SELECT * 
+FROM Teacher 
+WHERE department = 'Design' 
+    INTERSECT
+SELECT * 
+FROM Teacher 
+WHERE salary < 3000;
+
+
 ALTER TABLE Student ADD COLUMN result VARCHAR(20);
 
 -- Actualizamos algunos valores
