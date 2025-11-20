@@ -3,3 +3,5 @@
      FROM Student a JOIN Student b 
      ON a.id=b.id and a.enrollmentDate=b.enrollmentDate 
      ORDER BY a.enrollmentDate ASC;
+
+ SELECT teacher_id, COUNT(id) TotalStudents FROM Student GROUP BY teacher_id;
