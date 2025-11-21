@@ -49,7 +49,7 @@ WHERE salary < 3000;
 ALTER TABLE Student ADD COLUMN result VARCHAR(20);
 
 --dml
--- Actualizamos algunos valores
+-- 
 UPDATE Student SET result = 'Aprobado' WHERE id IN (1,2,6);
 UPDATE Student SET result = 'Suspenso' WHERE id IN (3,5,10);
 UPDATE Student SET result = 'En Curso' WHERE result IS NULL;
@@ -97,14 +97,14 @@ FROM Employee
 WHERE TIMESTAMPDIFF(YEAR, birthDate, CURDATE()) > 40;
 
 
--- Estudiantes cuya suma total de horas es mas de la media total
+-- SUM + AVG
 SELECT s.studentName, SUM(h.totalHour) AS total_hours
 FROM Student s
 JOIN Hour h ON s.id = h.student_id
 GROUP BY s.id
 HAVING SUM(h.totalHour) > (SELECT AVG(totalHour) FROM Hour);
 
--- Los 3 estudiantes con más horas
+-- Top 3 more total hours
 SELECT s.studentName, SUM(h.totalHour) AS total_hours
 FROM Student s
 JOIN Hour h ON s.id = h.student_id
@@ -234,7 +234,7 @@ WHERE EXISTS (
 );
 
 
--- MOD impares
+-- MOD ODD
 SELECT s.studentName, h.totalHour
 FROM Student s
 JOIN Hour h ON s.id = h.student_id
@@ -245,12 +245,39 @@ SELECT studentName, YEAR(enrollmentDate)
 FROM Student
 WHERE YEAR(enrollmentDate) = 2023;
 
--- Horas trabajadas por mes
+-- Worked Hours for Month
 SELECT MONTH(dateWorked) AS month, SUM(totalHour) AS hours
 FROM Hour
 GROUP BY MONTH(dateWorked);
 
--- Empleados con mas de 5 años de antiguedad
+-- Employee with more than 5 years in the Company
 SELECT employeeName, TIMESTAMPDIFF(YEAR, hireDate, CURDATE()) AS years_worked
 FROM Employee
 WHERE TIMESTAMPDIFF(YEAR, hireDate, CURDATE()) > 5;
+
+-- Rank
+SELECT employeeName, salary, ROW_NUMBER() OVER (ORDER BY Salary DESC) AS rank_salary FROM Employee;
+
+-- 
+SELECT s.studentName
+FROM Student s
+LEFT JOIN Hour h ON s.id=h.student_id
+WHERE h.id IS NULL AND s.employee_id IS NOT NULL;
+
+-- 
+SELECT s.studentName,
+SUM(h.totalHour) AS student_total,
+(SUM(h.totalHour) - (SELECT AVG(totalHour) FROM Hour)) AS difference
+FROM Student s
+JOIN Hour h ON s.id = h.student_id
+GROUP BY s.id;
+
+
+-- Rollback
+START TRANSACTION;
+SAVEPOINT Friday;
+UPDATE Teacher SET salary = salary + 500;
+SELECT salary, teacherName FROM Teacher;
+ROLLBACK TO Friday;
+
+
